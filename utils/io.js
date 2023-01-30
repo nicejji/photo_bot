@@ -12,7 +12,7 @@ export const processFromUrl = async url => {
   const imageBuffer = await fetchImage(url);
   const {data, info: {width, height, channels}} = await sharp(imageBuffer).raw().toBuffer({resolveWithObject: true});
   const points = lod.chunk([...data], channels);
-  const [centers, labels] = KMeans(points, 3);
+  const [centers, labels] = KMeans(points, 7);
   const processed = Array.from({length: points.length}, (_, i) => centers[labels[i]]).flat();
   return await sharp(Uint8Array.from(processed), {raw: {width, height, channels}}).png().toBuffer();
 }
