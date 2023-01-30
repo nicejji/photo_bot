@@ -31,7 +31,7 @@ const imageReply = async ctx => {
 bot.command('set', async ctx => {
   // const user_id = ctx?.from.id;
   const clusters = parseInt(ctx.message.text.split(" ").slice(-1)[0]);
-  if (!clusters || clusters > 15 || clusters <= 0) {ctx.telegram.sendMessage(ctx.from.id, '🙋 Выберите количество кластеров командой в формате /set n')}
+  if (!clusters || clusters > 15 || clusters <= 0) {ctx.telegram.sendMessage(ctx.from.id, '🙋 Выберите количество кластеров командой в формате /set n\nГде n - количество кластеров от 1 до 15')}
   else {
     users[ctx.from.id] = clusters;
     ctx.telegram.sendMessage(ctx.from.id, `👍 Установлено ${clusters} кластеров.`)
