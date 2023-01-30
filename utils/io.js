@@ -11,6 +11,7 @@ const fetchImage = async url => {
 export const processFromUrl = async url => {
   const imageBuffer = await fetchImage(url);
   const {data, info: {width, height, channels}} = await sharp(imageBuffer).raw().toBuffer({resolveWithObject: true});
+  if (width * height > 10e6) throw new Error('Too big image');
   const points = lod.chunk([...data], channels);
   const [centers, labels] = KMeans(points, 7);
   const processed = Array.from({length: points.length}, (_, i) => centers[labels[i]]).flat();
